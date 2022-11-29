@@ -50,7 +50,11 @@ JMP inicio
 
 ;Fim da operacao de Sub
  
-mult: LDA 250
+mult: LDA 254 ;Testagem para ver se tem um zero na operacao
+JZ fimmul
+LDA 252
+JZ fimmul
+multloop: LDA 250
 ADD 254
 STA 250
 LDA 249
@@ -60,8 +64,8 @@ LDA 252
 NOT
 ADD 253
 ADD 249
-JNZ mult
-LDA 250
+JNZ multloop
+fimmul: LDA 250
 OUT 0
 LDA 249 ;Para zerar o meu "resultado de apoio"
 NOT
@@ -70,7 +74,10 @@ ADD 249
 STA 249
 JZ inicio ;Final da operacao de multiplicacao
 
-div: LDA 252 ;Comeco da operacao de divisao
+div: LDA 254 ;Testagem para ver se tem zero na operacao
+JZ divresto
+LDA 252
+JZ divresto
 NOT
 ADD 253
 STA 252
@@ -86,8 +93,9 @@ divresto: LDA 250
 OUT 0
 JMP inicio
 
-
-som: LDA 250
+som: LDA 254 ;testagem de zero na operacao
+JZ inicio
+somloop: LDA 250
 ADD 253
 STA 250
 OUT 0
@@ -95,6 +103,5 @@ LDA 254
 NOT
 ADD 253
 ADD 250
-JNZ som
+JNZ somloop
 JZ inicio ;Final da operacao de somatoria
-
